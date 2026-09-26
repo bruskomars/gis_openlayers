@@ -1,7 +1,48 @@
+body {
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+}
+
 #map {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    grid-area: header;
+    font-size: 25px;
+    height: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif'
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 20vw 80vw;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas:
+    "header header"
+    "left right";
+}
+
+/* Left Panel */
+.left {
+  grid-area: left;
+  width: 20vw;
+  height: 100vh;
+  border: 5px solid grey;
+}
+
+/* Table of Contents (Layers) */
+.toc {
+  margin-left: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Right Panel */
+.right {
+  grid-area: right;
+  width: 80vw;
+  height: 100vh;
+  border: 5px solid grey;
 }
