@@ -25,6 +25,7 @@ var osmTile = new ol.layer.Tile({
 
 var baseGroup = new ol.layer.Group({
   title: "Base Maps",
+  fold: true,
   layers: [osmTile, noneTile],
 });
 
@@ -62,6 +63,7 @@ var phRoad = new ol.layer.Tile({
 
 var overlayGroup = new ol.layer.Group({
   title: "Overlays",
+  fold: true,
   layers: [phAdmin, phRoad],
 });
 
@@ -73,6 +75,30 @@ var layerSwitcher = new LayerSwitcher({
 map.addControl(layerSwitcher);
 map.updateSize();
 
+var mousePosition = new ol.control.MousePosition({
+  className: "mousePosition",
+  projection: "EPSG:4326",
+  coordinateFormat: function (coordinates) {
+    return ol.coordinate.format(coordinates, "{y}, {x}", 6);
+  },
+});
+
+map.addControl(mousePosition);
+
+var scaleControl = new ol.control.ScaleLine({
+  units: "metric", // options: 'degrees', 'imperial', 'us', 'nautical', 'metric'
+  bar: true, // show as a bar instead of line
+  steps: 4, // number of segments in the bar
+  text: true, // show text labels
+  minWidth: 100, // minimum width in pixels
+});
+
+map.addControl(scaleControl);
+
+map.once("rendercomplete", function () {
+  const scaleLine = document.querySelector(".ol-scale-line");
+  console.log(scaleLine.innerHTML); // should now have text like "200 km"
+});
 // function toggleLayer(e) {
 //   var lyrname = e.target.value;
 //   var checkedStatus = e.target.checked;
