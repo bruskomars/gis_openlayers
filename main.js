@@ -8,6 +8,12 @@ var map = new ol.Map({
   view: mapView,
 });
 
+var noneTile = new ol.layer.Tile({
+  title: "None",
+  type: "base",
+  visible: false,
+});
+
 var osmTile = new ol.layer.Tile({
   title: "Open Street Map",
   type: "base",
@@ -15,9 +21,16 @@ var osmTile = new ol.layer.Tile({
   source: new ol.source.OSM(),
 });
 
-map.addLayer(osmTile);
+// map.addLayer(osmTile);
 
-var phTile = new ol.layer.Tile({
+var baseGroup = new ol.layer.Group({
+  title: "Base Maps",
+  layers: [osmTile, noneTile],
+});
+
+map.addLayer(baseGroup);
+
+var phAdmin = new ol.layer.Tile({
   title: "Philippines Admin",
   visible: true,
   source: new ol.source.TileWMS({
@@ -30,7 +43,7 @@ var phTile = new ol.layer.Tile({
   }),
 });
 
-map.addLayer(phTile);
+// map.addLayer(phAdmin);
 
 var phRoad = new ol.layer.Tile({
   title: "PH Roads",
@@ -45,7 +58,14 @@ var phRoad = new ol.layer.Tile({
   }),
 });
 
-map.addLayer(phRoad);
+// map.addLayer(phRoad);
+
+var overlayGroup = new ol.layer.Group({
+  title: "Overlays",
+  layers: [phAdmin, phRoad],
+});
+
+map.addLayer(overlayGroup);
 
 var layerSwitcher = new LayerSwitcher({
   tipLabel: "Layers", // tooltip
@@ -53,14 +73,14 @@ var layerSwitcher = new LayerSwitcher({
 map.addControl(layerSwitcher);
 map.updateSize();
 
-function toggleLayer(e) {
-  var lyrname = e.target.value;
-  var checkedStatus = e.target.checked;
-  var lyrlist = map.getLayers();
+// function toggleLayer(e) {
+//   var lyrname = e.target.value;
+//   var checkedStatus = e.target.checked;
+//   var lyrlist = map.getLayers();
 
-  lyrlist.forEach((e) => {
-    if (lyrname == e.get("title")) {
-      e.setVisible(checkedStatus);
-    }
-  });
-}
+//   lyrlist.forEach((e) => {
+//     if (lyrname == e.get("title")) {
+//       e.setVisible(checkedStatus);
+//     }
+//   });
+// }

@@ -21,8 +21,8 @@ body {
   grid-template-columns: 20vw 80vw;
   grid-template-rows: 50px 1fr;
   grid-template-areas:
-    "header header"
-    "left right";
+    "header"
+    "right";
 }
 
 /* Left Panel */
@@ -42,7 +42,7 @@ body {
 /* Right Panel */
 .right {
   grid-area: right;
-  width: 80vw;
+  width: 100vw;
   height: 100vh;
   border: 5px solid grey;
 }
